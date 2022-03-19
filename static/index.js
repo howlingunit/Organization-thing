@@ -1,4 +1,5 @@
 function setUpTopic(topic) {
+  console.log(topic);
   const topicsElem = document.querySelector('#topics');
 
   const topicDiv = document.createElement('div');
@@ -7,7 +8,7 @@ function setUpTopic(topic) {
   topicsElem.appendChild(topicDiv);
 
   const topicHeading = document.createElement('h2');
-  topicHeading.textContent = topic.topicName;
+  topicHeading.textContent = topic.topic;
   topicDiv.appendChild(topicHeading);
 
   for (let i = 0; i < topic.items.length; i++) {
@@ -23,7 +24,8 @@ async function init() {
   topics = await topics.json();
   console.log(topics);
   for (let i = 0; i < topics.length; i++) {
-    const topic = fetch(`/getTopic?topic=${topics[i]}`);
+    let topic = await fetch(`/getTopic?topic=${topics[i]}`);
+    topic = await topic.json();
     setUpTopic(topic);
   }
 }
