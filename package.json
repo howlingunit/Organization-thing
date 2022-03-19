@@ -1,0 +1,36 @@
+{
+  "name": "organization_thing",
+  "version": "1.0.0",
+  "description": "",
+  "main": "svr.js",
+  "type": "module",
+  "scripts": {
+    "test": "node ."
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/howlingunit/Organization_thing.git"
+  },
+  "author": "howlingunit",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/howlingunit/Organization_thing/issues"
+  },
+  "homepage": "https://github.com/howlingunit/Organization_thing#readme",
+  "dependencies": {
+    "express": "^4.17.3",
+    "sqlite": "^4.0.25",
+    "sqlite3": "^5.0.2"
+  },
+  "devDependencies": {
+    "eslint": "^8.11.0",
+    "eslint-config-portsoc": "github:portsoc/eslint-config-portsoc"
+  },
+  "eslintConfig": {
+    "extends": "portsoc",
+    "root": true,
+    "env": {
+      "browser": true
+    }
+  }
+}
