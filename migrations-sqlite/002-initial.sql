@@ -17,4 +17,5 @@ CREATE TABLE items(
 
 
 insert into topics(id, topicName) values (1, 'example topic');
-insert into items(id, topic, itemName) values (1, 1, 'example item');
+insert into items(id, topic, itemName) values (1, 1, 'example item1');
+insert into items(id, topic, itemName) values (2, 1, 'example item2');
