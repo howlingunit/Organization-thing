@@ -19,6 +19,7 @@ async function refreshTopics() {
 
 function eventListeners() {
   document.querySelector('#add').addEventListener('click', newTopic);
+  document.querySelector('#editTopic').addEventListener('click', editTopic);
   document.querySelector('#remove').addEventListener('click', removeTopic);
 }
 
@@ -54,7 +55,78 @@ async function addTopic() {
     body: payload,
   });
   topicName = '';
-  refreshTopics();
+  window.location.reload();
+}
+
+function appendToItems(item) {
+  const topicItms = document.querySelector('#topicItms');
+  const itemBox = document.createElement('div');
+  itemBox.id = item;
+  itemBox.classList.add('itmBox');
+
+  const itemElem = document.createElement('li');
+  itemElem.classList.add('itmVal');
+  itemElem.textContent = item;
+  itemBox.appendChild(itemElem);
+
+  const DBtn = document.createElement('button');
+  DBtn.textContent = '-';
+  DBtn.id = item;
+  DBtn.classList.add('DelBtn');
+  DBtn.addEventListener('click', removeFromItems);
+  itemBox.appendChild(DBtn);
+
+
+  topicItms.appendChild(itemBox);
+}
+
+function removeFromItems(e) {
+  const item = e.target.id;
+  const itemElem = document.querySelector(`#${item}`);
+  itemElem.remove();
+}
+
+function editEventListeners() {
+  document.querySelector('#addItm').addEventListener('click', () => {
+    const newItem = document.querySelector('#newItm').value;
+    appendToItems(newItem);
+  });
+  document.querySelector('#submit').addEventListener('click', submit);
+}
+
+async function submit() {
+  const topicName = document.querySelector('#topic').value;
+  await fetch('/delTopic', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify([topicName]),
+  });
+
+  const items = [];
+  const itemElems = document.querySelectorAll('.itmVal');
+  for (let i = 0; i < itemElems.length; i++) {
+    items.push(itemElems[i].textContent);
+  }
+  const payload = { topicName, items };
+
+  await fetch('/addTopic', {
+    method: 'POST',
+    headers: { 'content-type': 'application/json' },
+    body: JSON.stringify(payload),
+  });
+  window.location.reload();
+}
+
+async function editTopic() {
+  const editElem = document.querySelector('#edit');
+  editElem.classList.remove('invis');
+  const topic = document.querySelector('#topic').value;
+  let DBtopic = await fetch(`/getTopic?topic=${topic}`);
+  DBtopic = await DBtopic.json();
+  for (let i = 0; i < DBtopic.items.length; i++) {
+    appendToItems(DBtopic.items[i]);
+  }
+  editEventListeners();
 }
 
 async function removeTopic() {
@@ -65,7 +137,7 @@ async function removeTopic() {
     body: JSON.stringify(topic),
   });
   topic[0] = '';
-  await refreshTopics();
+  window.location.reload();
 }
 
 init();
