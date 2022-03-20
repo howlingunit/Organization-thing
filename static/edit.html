@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="style.css">
+  <title>Organization - Edit</title>
+</head>
+<body>
+  <nav>
+    <a href="./index.html"><button>home</button></a>
+  </nav>
+  <section id="main">
+    <p>current topics:</p>
+    <ul id="topicList"></ul>
+    <input type="text" name="topic" id="topic">
+    <button id="add">add</button>
+    <button id="remove">remove</button>
+
+    <div id="newItems" class="invis">
+      <div id="itemInputs">
+        <input type="text" class="itemInput">
+      </div>
+      <button id="addItem">add item</button>
+      <button id="done">done</button>
+    </div>
+  </section>
+
+  <script src="./edit.js"></script>
+</body>
+</html>
